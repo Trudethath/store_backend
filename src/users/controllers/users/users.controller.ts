@@ -18,7 +18,6 @@ import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UserAlreadyExistsException } from 'src/users/exceptions/UserAlreadyExists.exception';
 import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UsersService } from 'src/users/services/users/users.service';
-
 import { SerializedUser } from 'src/users/types';
 
 @Controller('users')
@@ -28,8 +27,9 @@ export class UsersController {
   ) {}
 
   @Get()
-  findAllUsers() {
-    return this.usersService.findUsers();
+  async findAllUsers() {
+    const users = await this.usersService.findUsers();
+    return users;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

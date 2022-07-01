@@ -24,10 +24,10 @@ export class UsersService {
     return user;
   }
 
-  // findUserByUsername(username: string) {
-  //   const user = this.userRepository.findOneBy({ username });
-  //   return user;
-  // }
+  findUserByUsername(username: string) {
+    const user = this.userRepository.findOneBy({ username });
+    return user;
+  }
 
   findUserByEmail(email: string) {
     const user = this.userRepository.findOneBy({ email });

@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 export interface User {
   id: number;
@@ -8,8 +8,11 @@ export interface User {
 }
 
 export class SerializedUser {
+  @Expose()
   id: number;
+  @Expose()
   username: string;
+  @Expose()
   email: string;
 
   @Exclude() // excludes password
