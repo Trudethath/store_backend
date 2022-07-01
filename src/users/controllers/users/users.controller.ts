@@ -10,10 +10,12 @@ import {
   ParseIntPipe,
   Post,
   UseFilters,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { AuthenticatedGuard } from 'src/auth/utils/LocalGuard';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UserAlreadyExistsException } from 'src/users/exceptions/UserAlreadyExists.exception';
 import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
@@ -26,6 +28,7 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly usersService: UsersService,
   ) {}
 
+  @UseGuards(AuthenticatedGuard)
   @Get()
   async findAllUsers() {
     const users = await this.usersService.findUsers();

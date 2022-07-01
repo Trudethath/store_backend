@@ -14,6 +14,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string) {
+    console.log('isnide local strategy');
+    console.log(email);
+    console.log(password);
+
     const user = this.authService.validateUser(email, password);
     if (!user) {
       throw new UnauthorizedException();
