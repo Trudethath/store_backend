@@ -15,6 +15,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
+import { UserAlreadyExistsException } from 'src/users/exceptions/UserAlreadyExists.exception';
 import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UsersService } from 'src/users/services/users/users.service';
 
@@ -42,7 +43,11 @@ export class UsersController {
 
   @Post('create')
   @UsePipes(ValidationPipe)
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.createUser(createUserDto);
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    const IsEmailTaken = await this.usersService.findUserByEmail(
+      createUserDto.email,
+    );
+    if (!IsEmailTaken) return this.usersService.createUser(createUserDto);
+    else throw new UserAlreadyExistsException(); // custom exception
   }
 }
