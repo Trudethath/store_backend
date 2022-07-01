@@ -7,8 +7,8 @@ export class AuthService {
   constructor(
     @Inject('USERS_SERVICE') private readonly usersService: UsersService,
   ) {}
-  async validateUser(username: string, password: string) {
-    const user = await this.usersService.findUserByUsername(username);
+  async validateUser(email: string, password: string) {
+    const user = await this.usersService.findUserByEmail(email);
     if (user) {
       const matched = comparePasswords(password, user.password);
       if (matched) return user;
