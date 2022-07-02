@@ -4,8 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
-import { AuthController } from './auth/controllers/auth/auth.controller';
-import { AuthService } from './auth/services/auth/auth.service';
 
 @Module({
   imports: [
@@ -25,7 +23,7 @@ import { AuthService } from './auth/services/auth/auth.service';
       session: true,
     }),
   ],
-  controllers: [AuthController],
-  providers: [AuthService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

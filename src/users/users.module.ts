@@ -9,7 +9,7 @@ import { User } from '../typeorm';
   controllers: [UsersController],
   providers: [
     {
-      provide: 'USER_SERVICE',
+      provide: 'USERS_SERVICE',
       useClass: UsersService,
     },
   ],

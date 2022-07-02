@@ -23,7 +23,7 @@ import { SerializedUser } from 'src/users/types';
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject('USER_SERVICE') private readonly usersService: UsersService,
+    @Inject('USERS_SERVICE') private readonly usersService: UsersService,
   ) {}
 
   @Get()
