@@ -1,12 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
 
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-}
-
 export class SerializedUser {
   @Expose()
   id: number;
@@ -17,6 +10,12 @@ export class SerializedUser {
 
   @Exclude() // excludes password
   password: string;
+
+  @Expose()
+  created_at: string;
+
+  @Expose()
+  updated_at: string;
 
   constructor(partial: Partial<SerializedUser>) {
     Object.assign(this, partial);

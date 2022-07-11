@@ -4,7 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from './typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { AuthModule } from './auth/auth.module';
-
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 @Module({
   imports: [
     UsersModule,
@@ -22,6 +23,11 @@ import { AuthModule } from './auth/auth.module';
     PassportModule.register({
       session: true,
     }),
+    // GraphQLModule.forRoot<ApolloDriverConfig>({
+    //   driver: ApolloDriver,
+    //   debug: false,
+    //   playground: false,
+    // }),
   ],
   controllers: [],
   providers: [],

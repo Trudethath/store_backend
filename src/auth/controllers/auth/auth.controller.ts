@@ -29,11 +29,6 @@ export class AuthController {
     return req.user;
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('isAuthorized')
-  getAuthorized() {
-    return true;
-  }
   // @UseGuards(AuthenticatedGuard)
   // @Get('/profile')
   // getHello(@Request() req): string {

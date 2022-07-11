@@ -34,10 +34,13 @@ export class UsersService {
     return user;
   }
 
-  // Creates user with hashed password
+  // Creates user with hashed password and dates
   createUser(createUserDto: CreateUserDto) {
-    const password = encodePassword(createUserDto.password);
-    const newUser = this.userRepository.create({ ...createUserDto, password });
-    return this.userRepository.save(newUser);
+    const date = new Date().toLocaleDateString();
+    const userCopy = createUserDto;
+    userCopy.password = encodePassword(createUserDto.password);
+    userCopy.created_at = date;
+    userCopy.updated_at = date;
+    return this.userRepository.save(userCopy);
   }
 }

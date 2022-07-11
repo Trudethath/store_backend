@@ -25,4 +25,9 @@ export class User {
     default: '',
   })
   password: string;
+
+  @Column({ nullable: true })
+  created_at: string;
+  @Column({ nullable: true })
+  updated_at: string;
 }
