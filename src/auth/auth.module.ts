@@ -9,14 +9,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './utils/Constants';
 import { JwtStrategy } from './utils/jwt.strategy';
-import { SessionSerializer } from './utils/SessionSerializer';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    PassportModule.register({
-      session: true,
-    }),
+    PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '600s' },
@@ -34,7 +31,6 @@ import { SessionSerializer } from './utils/SessionSerializer';
     },
     LocalStrategy,
     JwtStrategy,
-    SessionSerializer,
   ],
 })
 export class AuthModule {}
