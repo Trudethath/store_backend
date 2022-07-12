@@ -9,14 +9,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  UseFilters,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { UserAlreadyExistsException } from 'src/users/exceptions/UserAlreadyExists.exception';
-import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
 import { UsersService } from 'src/users/services/users/users.service';
 import { SerializedUser } from 'src/users/types';
 
@@ -33,7 +31,6 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseFilters(HttpExceptionFilter)
   @Get('/id/:id')
   async findUserById(@Param('id', ParseIntPipe) id: number) {
     const user = await this.usersService.findUserById(id);
