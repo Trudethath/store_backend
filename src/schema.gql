@@ -2,9 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Details {
+  size: Int!
+  black_quantity: Int!
+  grey_quantity: Int!
+  yellow_quantity: Int!
+  green_quantity: Int!
+  red_quantity: Int!
+}
+
+type Variations {
+  size: Int!
+  details: [Details!]!
+}
+
 type Item {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  itemId: Int!
+  model: String!
+  gender: String!
+  release_year: Int!
+  price: Float!
+  onSale: Int!
+  variations: [Variations!]!
 }
 
 type Query {

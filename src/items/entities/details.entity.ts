@@ -1,37 +1,32 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Variations } from './variations.entity';
 
 @Entity()
 @ObjectType()
-export class Item {
+export class Details {
   @PrimaryGeneratedColumn({
     type: 'bigint',
   })
   @Field(() => Int)
-  itemId: number;
-
-  @Column()
-  @Field(() => String)
-  model: string;
-
-  @Column()
-  @Field(() => String)
-  gender: string;
+  size: number;
 
   @Column()
   @Field(() => Int)
-  release_year: number;
-
-  @Column()
-  @Field(() => Float)
-  price: number;
+  black_quantity: number;
 
   @Column()
   @Field(() => Int)
-  onSale: number;
+  grey_quantity: number;
 
   @Column()
-  @Field(() => [Variations])
-  variations: Variations[];
+  @Field(() => Int)
+  yellow_quantity: number;
+
+  @Column()
+  @Field(() => Int)
+  green_quantity: number;
+
+  @Column()
+  @Field(() => Int)
+  red_quantity: number;
 }
