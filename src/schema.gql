@@ -2,29 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Details {
-  size: Int!
-  black_quantity: Int!
-  grey_quantity: Int!
-  yellow_quantity: Int!
-  green_quantity: Int!
-  red_quantity: Int!
-}
-
-type Variations {
-  size: Int!
-  details: [Details!]!
-}
-
 type Item {
-  itemId: Int!
+  itemId: Int
   model: String!
   gender: String!
   release_year: Int!
   price: Float!
   onSale: Int!
-  variations: [Variations!]!
+  variations: JSON
 }
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type Query {
   items: [Item!]!
@@ -38,12 +29,22 @@ type Mutation {
 }
 
 input CreateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  itemId: Int
+  model: String!
+  gender: String!
+  release_year: Int!
+  price: Float!
+  onSale: Int = 0
+  variations: JSON
 }
 
 input UpdateItemInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  itemId: Int
+  model: String
+  gender: String
+  release_year: Int
+  price: Float
+  onSale: Int = 0
+  variations: JSON
   id: Int!
 }
