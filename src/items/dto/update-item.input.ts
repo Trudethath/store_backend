@@ -1,5 +1,5 @@
 import { CreateItemInput } from './create-item.input';
-import { InputType, Field, Int, PartialType, Float } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
 
 @InputType()

@@ -9,6 +9,7 @@ import { join } from 'path';
 import { ItemsModule } from './items/items.module';
 import { Item } from './items/entities/item.entity';
 import GraphQLJSON from 'graphql-type-json';
+import { Invoices } from './items/entities/invoices.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import GraphQLJSON from 'graphql-type-json';
       username: 'root',
       password: '',
       database: 'donkey_store',
-      entities: [User, Item],
+      entities: [User, Item, Invoices],
       synchronize: true, // when in production switch to false
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({

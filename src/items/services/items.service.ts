@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateInvoiceDto } from '../dto/create-invoice.dto';
 import { CreateItemInput } from '../dto/create-item.input';
 import { UpdateItemInput } from '../dto/update-item.input';
 import { Item } from '../entities/item.entity';
@@ -36,6 +37,15 @@ export class ItemsService {
     newItem.quantity = updateItemInput.quantity;
     const itemToSave = this.itemRepository.create(newItem);
     return this.itemRepository.save(itemToSave);
+  }
+
+  createInvoice(createInvoiceDto: CreateInvoiceDto) {
+    const date = new Date().toLocaleDateString();
+    const invoice = createInvoiceDto;
+    invoice.created_at = date;
+    invoice.updated_at = date;
+    console.log(invoice);
+    return 'this.itemRepository.create(invoice)';
   }
 
   // update(id: number, updateItemInput: UpdateItemInput) {
