@@ -10,7 +10,13 @@ import { ItemsModule } from './items/items.module';
 import { Item } from './items/entities/item.entity';
 import GraphQLJSON from 'graphql-type-json';
 import { Invoices } from './items/entities/invoices.entity';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailController } from './mail/mail.controller';
+import { MailService } from './mail/mail.service';
 
+console.log(process.cwd() + 'src/mail/templates');
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -29,11 +35,36 @@ import { Invoices } from './items/entities/invoices.entity';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        transport: {
+          host: 'smtp.mailtrap.io',
+          secure: false,
+          auth: {
+            user: 'a3ae38714d2913',
+            pass: 'b3515a92bd5397',
+          },
+        },
+        defaults: {
+          from: '<sendgrid_from_email_address>',
+        },
+        template: {
+          dir: process.cwd() + '/src/mail/templates',
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: false,
+          },
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    ConfigModule.forRoot(),
     UsersModule,
     AuthModule,
     ItemsModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [MailController],
+  providers: [MailService],
 })
 export class AppModule {}
