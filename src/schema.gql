@@ -9,7 +9,8 @@ type Item {
   release_year: Int!
   price: Float!
   onSale: Int!
-  variations: JSON
+  images: JSON!
+  quantity: JSON!
 }
 
 """
@@ -19,12 +20,13 @@ scalar JSON
 
 type Query {
   items: [Item!]!
-  item(id: Int!): Item!
+  item(itemId: Int!): Item!
+  itemByModel(model: String!): Item!
 }
 
 type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
-  updateItem(updateItemInput: UpdateItemInput!): Item!
+  updateItemByModel(model: String!, updateItemInput: UpdateItemInput!): Item!
   removeItem(id: Int!): Item!
 }
 
@@ -35,7 +37,8 @@ input CreateItemInput {
   release_year: Int!
   price: Float!
   onSale: Int = 0
-  variations: JSON
+  images: JSON!
+  quantity: JSON!
 }
 
 input UpdateItemInput {
@@ -45,6 +48,6 @@ input UpdateItemInput {
   release_year: Int
   price: Float
   onSale: Int = 0
-  variations: JSON
-  id: Int!
+  images: JSON
+  quantity: JSON!
 }

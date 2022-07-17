@@ -1,8 +1,9 @@
 import { CreateItemInput } from './create-item.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int, PartialType, Float } from '@nestjs/graphql';
+import GraphQLJSON from 'graphql-type-json';
 
 @InputType()
 export class UpdateItemInput extends PartialType(CreateItemInput) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => GraphQLJSON)
+  quantity: JSON;
 }

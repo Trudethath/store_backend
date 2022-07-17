@@ -28,6 +28,11 @@ export class CreateItemInput {
   @IsNotEmpty()
   onSale: number;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  variations?: JSON;
+  @Field(() => GraphQLJSON)
+  @IsNotEmpty()
+  images: JSON;
+
+  @Field(() => GraphQLJSON)
+  @IsNotEmpty()
+  quantity: JSON;
 }

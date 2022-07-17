@@ -25,9 +25,22 @@ export class ItemsService {
     return `This action returns a #${id} item`;
   }
 
-  update(id: number, updateItemInput: UpdateItemInput) {
-    return `This action updates a #${id} item`;
+  findOneByModel(model: string) {
+    const item = this.itemRepository.findOneBy({ model });
+    return item;
   }
+
+  async updateByModel(model: string, updateItemInput: UpdateItemInput) {
+    const item = await this.itemRepository.findOneBy({ model });
+    const newItem = item;
+    newItem.quantity = updateItemInput.quantity;
+    const itemToSave = this.itemRepository.create(newItem);
+    return this.itemRepository.save(itemToSave);
+  }
+
+  // update(id: number, updateItemInput: UpdateItemInput) {
+  //   return `This action updates a #${id} item`;
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} item`;

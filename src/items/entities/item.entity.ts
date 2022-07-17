@@ -1,7 +1,6 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-// import { Variations } from './variations.entity';
 
 @Entity()
 @ObjectType()
@@ -32,7 +31,11 @@ export class Item {
   @Field(() => Int)
   onSale: number;
 
-  @Column({ type: 'json' })
-  @Field(() => GraphQLJSON, { nullable: true })
-  variations?: JSON;
+  @Column('simple-json')
+  @Field(() => GraphQLJSON)
+  images: JSON;
+
+  @Column('simple-json')
+  @Field(() => GraphQLJSON)
+  quantity: JSON;
 }
