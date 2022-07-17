@@ -4,10 +4,11 @@ import { ItemsResolver } from './resolvers/items.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Item } from './entities/item.entity';
 import { ItemController } from './controllers/item.controller';
+import { MailService } from 'src/mail/mail.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Item])],
   controllers: [ItemController],
-  providers: [ItemsService, ItemsResolver],
+  providers: [ItemsService, ItemsResolver, MailService],
 })
 export class ItemsModule {}
