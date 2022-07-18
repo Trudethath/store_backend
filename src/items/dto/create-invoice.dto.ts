@@ -19,6 +19,9 @@ export class CreateInvoiceDto {
   @IsNotEmpty()
   total: number;
 
+  @IsNotEmpty()
+  user: string;
+
   created_at: string;
   updated_at: string;
 }

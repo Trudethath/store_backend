@@ -25,7 +25,9 @@ export class ItemController {
   @Post('createinvoice')
   @UsePipes(ValidationPipe)
   async createInvoice(@Body() createInvoiceDto: CreateInvoiceDto) {
+    // console.log('create invoice: ', createInvoiceDto.models);
+    const date = new Date().toLocaleDateString();
     this.itemsService.createInvoice(createInvoiceDto);
-    this.mailService.sendMail('test@ds.ds', createInvoiceDto.models);
+    this.mailService.sendMail('test@ds.ds', createInvoiceDto, date);
   }
 }

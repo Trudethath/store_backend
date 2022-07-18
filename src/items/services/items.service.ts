@@ -44,7 +44,6 @@ export class ItemsService {
     const invoice = createInvoiceDto;
     invoice.created_at = date;
     invoice.updated_at = date;
-    console.log(invoice);
     return 'this.itemRepository.create(invoice)';
   }
 

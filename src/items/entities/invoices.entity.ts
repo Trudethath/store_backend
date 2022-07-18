@@ -43,6 +43,10 @@ export class Invoices {
 
   @Column()
   @Field(() => String)
+  user: string;
+
+  @Column()
+  @Field(() => String)
   created_at: string;
 
   @Column()
