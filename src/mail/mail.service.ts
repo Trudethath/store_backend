@@ -15,7 +15,6 @@ export class MailService {
 
     for (let index = 0; index < createInvoiceDto.models.length; index++) {
       const element = createInvoiceDto.models[index];
-      console.log(`[quantitybbbbbb]: ${element['chosenParameters'].quantity}`);
       modelsString += `Model: <b>${element['item'].model}</b> <br/> color: ${element['chosenParameters'].color} <br/> size: ${element['chosenParameters'].size} <br/> Qt: ${element['chosenParameters'].quantity}<hr>`;
     }
 

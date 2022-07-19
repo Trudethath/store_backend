@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateInvoiceDto } from '../dto/create-invoice.dto';
 import { CreateItemInput } from '../dto/create-item.input';
 import { UpdateItemInput } from '../dto/update-item.input';
@@ -10,6 +10,7 @@ import { Item } from '../entities/item.entity';
 export class ItemsService {
   constructor(
     @InjectRepository(Item) private readonly itemRepository: Repository<Item>,
+    private dataSource: DataSource,
   ) {}
 
   create(createItemInput: CreateItemInput) {
@@ -32,11 +33,24 @@ export class ItemsService {
   }
 
   async updateByModel(model: string, updateItemInput: UpdateItemInput) {
-    const item = await this.itemRepository.findOneBy({ model });
-    const newItem = item;
-    newItem.quantity = updateItemInput.quantity;
-    const itemToSave = this.itemRepository.create(newItem);
-    return this.itemRepository.save(itemToSave);
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const item = await this.itemRepository.findOneBy({ model });
+      const newItem = item;
+      newItem.quantity = updateItemInput.quantity;
+      await queryRunner.manager.save(newItem);
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
+
+    // const itemToSave = this.itemRepository.create(newItem);
+    // return this.itemRepository.save(itemToSave);
   }
 
   createInvoice(createInvoiceDto: CreateInvoiceDto) {
