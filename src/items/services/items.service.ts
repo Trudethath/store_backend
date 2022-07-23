@@ -4,12 +4,16 @@ import { DataSource, Repository } from 'typeorm';
 import { CreateInvoiceDto } from '../dto/create-invoice.dto';
 import { CreateItemInput } from '../dto/create-item.input';
 import { UpdateItemInput } from '../dto/update-item.input';
+import { Invoices } from '../entities/invoices.entity';
 import { Item } from '../entities/item.entity';
+import { ItemToInvoices } from '../entities/itemToInvoices';
 
 @Injectable()
 export class ItemsService {
   constructor(
     @InjectRepository(Item) private readonly itemRepository: Repository<Item>,
+    @InjectRepository(ItemToInvoices)
+    private readonly itemToInvoices: Repository<ItemToInvoices>,
     private dataSource: DataSource,
   ) {}
 
@@ -55,15 +59,21 @@ export class ItemsService {
 
   createInvoice(createInvoiceDto: CreateInvoiceDto) {
     const date = new Date().toLocaleDateString();
-    const invoice = createInvoiceDto;
+
+    const invoice = new Invoices();
+
+    invoice.models = createInvoiceDto.models;
+    invoice.shipping = createInvoiceDto.shipping;
+    invoice.payment = createInvoiceDto.payment;
+    invoice.subtotal = createInvoiceDto.subtotal;
+    invoice.vat = createInvoiceDto.vat;
+    invoice.total = createInvoiceDto.total;
+    invoice.user = createInvoiceDto.user;
     invoice.created_at = date;
     invoice.updated_at = date;
-    return 'this.itemRepository.create(invoice)';
-  }
 
-  // update(id: number, updateItemInput: UpdateItemInput) {
-  //   return `This action updates a #${id} item`;
-  // }
+    return this.dataSource.manager.save(invoice);
+  }
 
   remove(id: number) {
     return `This action removes a #${id} item`;

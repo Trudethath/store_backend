@@ -4,9 +4,11 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Item } from './item.entity';
+import { ItemToInvoices } from './itemToInvoices';
 
 @Entity()
 @ObjectType()
@@ -53,7 +55,10 @@ export class Invoices {
   @Field(() => String)
   updated_at: string;
 
-  @ManyToMany(() => Item)
-  @JoinTable()
-  items: Item[];
+  @OneToMany(
+    () => ItemToInvoices,
+    (itemToInvoices) => itemToInvoices.invoices,
+    { cascade: true, eager: true },
+  )
+  public itemToInvoices!: ItemToInvoices[];
 }

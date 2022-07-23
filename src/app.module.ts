@@ -15,6 +15,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailController } from './mail/mail.controller';
 import { MailService } from './mail/mail.service';
+import { ItemToInvoices } from './items/entities/itemToInvoices';
 
 console.log(process.cwd() + 'src/mail/templates');
 @Module({
@@ -26,7 +27,7 @@ console.log(process.cwd() + 'src/mail/templates');
       username: 'root',
       password: '',
       database: 'donkey_store',
-      entities: [User, Item, Invoices],
+      entities: [User, Item, Invoices, ItemToInvoices],
       synchronize: true, // when in production switch to false
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({

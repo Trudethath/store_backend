@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ItemToInvoices } from './itemToInvoices';
 
 @Entity()
 @ObjectType()
@@ -38,4 +39,10 @@ export class Item {
   @Column('simple-json')
   @Field(() => GraphQLJSON)
   quantity: JSON;
+
+  @OneToMany(() => ItemToInvoices, (itemToInvoices) => itemToInvoices.item, {
+    cascade: true,
+    eager: true,
+  })
+  public itemToInvoices!: ItemToInvoices[];
 }

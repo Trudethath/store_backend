@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Item } from './entities/item.entity';
 import { ItemController } from './controllers/item.controller';
 import { MailService } from 'src/mail/mail.service';
+import { ItemToInvoices } from './entities/itemToInvoices';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Item])],
+  imports: [
+    TypeOrmModule.forFeature([Item]),
+    TypeOrmModule.forFeature([ItemToInvoices]),
+  ],
   controllers: [ItemController],
   providers: [ItemsService, ItemsResolver, MailService],
 })

@@ -41,7 +41,6 @@ export class UsersService {
     userCopy.password = encodePassword(createUserDto.password);
     userCopy.created_at = date;
     userCopy.updated_at = date;
-    console.log(typeof userCopy, userCopy);
     return this.userRepository.save(userCopy);
   }
 }
