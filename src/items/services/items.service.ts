@@ -36,25 +36,43 @@ export class ItemsService {
     return item;
   }
 
+  // async updateByModel(model: string, updateItemInput: UpdateItemInput) {
+  //   const queryRunner = this.dataSource.createQueryRunner();
+  //   console.log(model);
+
+  //   await queryRunner.connect();
+  //   // const newItem = await this.itemRepository.findOneBy({ model });
+  //   const newItem = await queryRunner.query(
+  //     `SELECT * from item where model='${model}'`,
+  //   );
+  //   newItem.quantity = updateItemInput.quantity;
+  //   await queryRunner.startTransaction();
+  //   // try {
+  //   // await queryRunner.query(
+  //   //   `UPDATE item set quantity='${JSON.stringify(
+  //   //     updateItemInput.quantity,
+  //   //   )}' where model='${model}'`,
+  //   // );
+  //   //   await queryRunner.manager.save(newItem);
+  //   // } catch (err) {
+  //   //   console.log('err');
+  //   //   console.log(err);
+  //   //   await queryRunner.rollbackTransaction();
+  //   // } finally {
+  //   //   await queryRunner.release();
+  //   // }
+
+  //   const itemToSave = this.itemRepository.create(newItem);
+  //   return this.itemRepository.save(itemToSave);
+  // }
+
+  // WITHOUT TRANSACTION
   async updateByModel(model: string, updateItemInput: UpdateItemInput) {
-    const queryRunner = this.dataSource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-
-    try {
-      const item = await this.itemRepository.findOneBy({ model });
-      const newItem = item;
-      newItem.quantity = updateItemInput.quantity;
-      await queryRunner.manager.save(newItem);
-    } catch (err) {
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
-
+    const newItem = await this.itemRepository.findOneBy({ model });
+    newItem.quantity = updateItemInput.quantity;
     // const itemToSave = this.itemRepository.create(newItem);
-    // return this.itemRepository.save(itemToSave);
+    console.log(newItem);
+    return this.itemRepository.save(newItem);
   }
 
   createInvoice(createInvoiceDto: CreateInvoiceDto) {

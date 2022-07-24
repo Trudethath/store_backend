@@ -37,11 +37,6 @@ export class ItemsResolver {
     return this.itemsService.updateByModel(model, updateItemInput);
   }
 
-  // @Mutation(() => Item)
-  // updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput) {
-  //   return this.itemsService.update(updateItemInput.id, updateItemInput);
-  // }
-
   @Mutation(() => Item)
   removeItem(@Args('id', { type: () => Int }) id: number) {
     return this.itemsService.remove(id);
